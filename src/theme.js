@@ -1,7 +1,25 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+const Colors = {
+	white: '#ffffff',
+	black: '#000000',
+	primaryLight: '#62d390',
+	primaryDark: '#179048',
+	mountainMeadow: '#20c161',
+	alizarinCrimson: '#db544a',
+};
 
 const Theme = createMuiTheme({
-
+	palette: {
+		primary: {
+			light: Colors.primaryLight,
+			main: Colors.mountainMeadow,
+			dark: Colors.primaryDark,
+			contrastText: Colors.white,
+		},
+		error: {
+			main: Colors.alizarinCrimson,
+		},
+	},
 	typography: {
 		htmlFontSize: 16,
 		fontSize: 16,
@@ -63,4 +81,4 @@ const Theme = createMuiTheme({
 	},
 });
 
-export { Theme };
+export { Theme, Colors };

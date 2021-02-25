@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import HubContext from '../../context/HubContext';
 import HubInformation from '../../components/HubInformation';
 import { discoverHueBridges, getBridgeInformation } from '../../utils/httpActions';
 
-const HubList = () => {
+const HubList = ({ history }) => {
 	const [hubList, setHubList] = useState(null);
+	const { setIpAddress } = useContext(HubContext);
+
+	const handleSetIpAddress = async ipAddress => {
+		setIpAddress(ipAddress);
+		history.push('/scenes');
+	};
 
 	useEffect(() => {
 		const hubListFound = [];
@@ -12,7 +19,7 @@ const HubList = () => {
 			hubFound.forEach(item => {
 				getBridgeInformation(item.internalipaddress).then(hub => {
 					hubListFound.push(
-						<HubInformation key={`${hub.name}_${hub.mac}`} hubName={hub.name} macAddress={hub.mac} apiVersion={hub.apiversion} ipAddress={item.internalipaddress} />
+						<HubInformation key={`${hub.name}_${hub.mac}`} hubName={hub.name} macAddress={hub.mac} apiVersion={hub.apiversion} ipAddress={item.internalipaddress} onClick={() => handleSetIpAddress(item.internalipaddress)} />
 					);
 					setHubList(hubListFound);
 				});
@@ -27,6 +34,7 @@ HubList.propTypes = {
 	hubName: PropTypes.string,
 	macAddress: PropTypes.string,
 	apiVersio: PropTypes.string,
+	history: PropTypes.object,
 };
 
 export default HubList;

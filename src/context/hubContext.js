@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const HubContext = React.createContext();
 
 export const HubProvider = ({ children }) => {
-	const [selectedIp, setSelectedIp] = React.useState();
+	const [ipAddress, setIpAddress] = useState();
 
 	return (
-		<HubContext.Provider value={{ selectedIp, setSelectedIp }}>
+		<HubContext.Provider value={{ ipAddress, setIpAddress }}>
 			{children}
 		</HubContext.Provider>
 	);
@@ -16,7 +16,5 @@ export const HubProvider = ({ children }) => {
 HubProvider.propTypes = {
 	children: PropTypes.object,
 };
-
-export const HubConsumer = HubContext.Consumer;
 
 export default HubContext;
