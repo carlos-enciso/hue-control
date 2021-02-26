@@ -6,16 +6,23 @@ import { discoverHueBridges, getBridgeInformation } from '../../utils/httpAction
 
 const HubList = ({ history }) => {
 	const [hubList, setHubList] = useState(null);
-	const { setIpAddress } = useContext(HubContext);
+	const { setIpAddress, setBackNavigation, setHeaderTitle } = useContext(HubContext);
+
+	setBackNavigation('/');
+	setHeaderTitle('Hubs');
 
 	const handleSetIpAddress = async ipAddress => {
 		setIpAddress(ipAddress);
-		history.push('/scenes');
+		history.push('/groups');
 	};
 
 	useEffect(() => {
 		const hubListFound = [];
 		discoverHueBridges().then(hubFound => {
+			if (hubFound.length === 1) {
+				handleSetIpAddress(hubFound[0].internalipaddress);
+				return null;
+			}
 			hubFound.forEach(item => {
 				getBridgeInformation(item.internalipaddress).then(hub => {
 					hubListFound.push(

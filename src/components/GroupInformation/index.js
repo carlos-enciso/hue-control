@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles, Typography, Switch } from '@material-ui/core/';
+import getImageByClass from '../../assets/icons/icons';
 
 const AntSwitch = withStyles((theme) => ({
 	root: {
@@ -36,18 +37,19 @@ const AntSwitch = withStyles((theme) => ({
 	checked: {},
 }))(Switch);
 
-const SceneInformationComponent = ({ groupName, isSwitchedOn, onSwitchChange }) => {
+const SceneInformationComponent = ({ groupName, groupClass, isSwitchedOn, onSwitchChange, onClick }) => {
 	const classes = useStyles();
 	const [isChecked, setIsChecked] = React.useState(isSwitchedOn);
-
 	const handleChange = event => {
 		setIsChecked(event.target.checked);
 		onSwitchChange(event.target.checked);
 	};
-
 	return (
 		<div className={classes.container}>
-			<Typography variant="h1">{groupName}</Typography>
+			<div className={classes.information} onClick={onClick}>
+				<img src={getImageByClass(groupClass)} alt={`${groupClass}_icon`} />
+				<Typography className={classes.name} variant="h1">{groupName}</Typography>
+			</div>
 			<AntSwitch checked={isChecked} onChange={handleChange} />
 		</div>
 	);
@@ -55,8 +57,10 @@ const SceneInformationComponent = ({ groupName, isSwitchedOn, onSwitchChange }) 
 
 SceneInformationComponent.propTypes = {
 	groupName: PropTypes.string,
+	groupClass: PropTypes.string,
 	isSwitchedOn: PropTypes.bool,
 	onSwitchChange: PropTypes.func,
+	onClick: PropTypes.func,
 };
 
 const useStyles = makeStyles({
@@ -66,6 +70,16 @@ const useStyles = makeStyles({
 		margin: '1rem',
 		border: '2px solid black',
 		justifyContent: 'space-between',
+		cursor: 'pointer',
+	},
+	information: {
+		flex: 1,
+		display: 'flex',
+		justifyContent: 'left',
+	},
+	name: {
+		marginLeft: '3rem',
+		alignSelf: 'center',
 	},
 });
 

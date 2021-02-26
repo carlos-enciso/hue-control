@@ -4,21 +4,26 @@ import { Theme } from './theme';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { HubProvider } from './context/HubContext';
 import HubList from './containers/HubList';
-import SceneList from './containers/GroupList';
+import GroupList from './containers/GroupList';
+import LightList from './containers/LightList';
+import SingleLight from './containers/SingleLight';
 import './App.css';
+import Navigation from './containers/Navigation';
 
 function App() {
 	return (
 		<BrowserRouter>
 			<MuiThemeProvider theme={Theme}>
-				<div className="App">
-					<HubProvider>
+				<HubProvider>
+					<Navigation>
 						<Switch>
 							<Route exact path="/" component={HubList} />
-							<Route exact path="/scenes" component={SceneList} />
+							<Route exact path="/groups" component={GroupList} />
+							<Route exact path="/lights/:groupId" component={LightList} />
+							<Route exact path="/lights/:groupId/:lightId" component={SingleLight} />
 						</Switch>
-					</HubProvider>
-				</div>
+					</Navigation>
+				</HubProvider>
 			</MuiThemeProvider>
 		</BrowserRouter>
 	);
