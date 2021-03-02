@@ -5,11 +5,9 @@ import HubInformation from '../../components/HubInformation';
 import { discoverHueBridges, getBridgeInformation } from '../../utils/httpActions';
 
 const HubList = ({ history }) => {
+	const [hubFound, setHubFound] = useState(null);
 	const [hubList, setHubList] = useState(null);
 	const { setIpAddress, setBackNavigation, setHeaderTitle } = useContext(HubContext);
-
-	setBackNavigation('/');
-	setHeaderTitle('Hubs');
 
 	const handleSetIpAddress = async ipAddress => {
 		setIpAddress(ipAddress);
@@ -17,22 +15,31 @@ const HubList = ({ history }) => {
 	};
 
 	useEffect(() => {
+		discoverHueBridges().then(response => {
+			setHubFound(response);
+		});
+	}, []);
+
+	useEffect(() => {
+		setBackNavigation('/');
+		setHeaderTitle('Hubs');
 		const hubListFound = [];
-		discoverHueBridges().then(hubFound => {
+		if (hubFound) {
 			if (hubFound.length === 1) {
 				handleSetIpAddress(hubFound[0].internalipaddress);
 				return null;
-			}
-			hubFound.forEach(item => {
-				getBridgeInformation(item.internalipaddress).then(hub => {
-					hubListFound.push(
-						<HubInformation key={`${hub.name}_${hub.mac}`} hubName={hub.name} macAddress={hub.mac} apiVersion={hub.apiversion} ipAddress={item.internalipaddress} onClick={() => handleSetIpAddress(item.internalipaddress)} />
-					);
-					setHubList(hubListFound);
+			} else {
+				hubFound.forEach(item => {
+					getBridgeInformation(item.internalipaddress).then(hub => {
+						hubListFound.push(
+							<HubInformation key={`${hub.name}_${hub.mac}`} hubName={hub.name} macAddress={hub.mac} apiVersion={hub.apiversion} ipAddress={item.internalipaddress} onClick={() => handleSetIpAddress(item.internalipaddress)} />
+						);
+						setHubList(hubListFound);
+					});
 				});
-			});
-		});
-	}, []);
+			}
+		}
+	}, [hubFound]);
 
 	return hubList && hubList;
 };

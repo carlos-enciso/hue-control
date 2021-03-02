@@ -13,9 +13,6 @@ const GroupList = ({ history }) => {
 		return null;
 	}
 
-	setBackNavigation('/');
-	setHeaderTitle('Groups');
-
 	const handleSwitchChange = (group, state) => {
 		setGroupState(ipAddress, group, { on: state });
 	};
@@ -25,6 +22,8 @@ const GroupList = ({ history }) => {
 	};
 
 	useEffect(() => {
+		setBackNavigation('/');
+		setHeaderTitle('Groups');
 		let groupListFound = [];
 		getGroupsList(ipAddress).then(response => {
 			groupListFound = Object.keys(response).map(group => {

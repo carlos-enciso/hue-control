@@ -35,7 +35,7 @@ const Navigation = ({ children }) => {
 
 Navigation.propTypes = {
 	history: PropTypes.object,
-	children: PropTypes.oneOf(PropTypes.object, PropTypes.array),
+	children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 const useStyles = makeStyles({

@@ -29,7 +29,7 @@ export const discoverHueBridges = () => {
  */
 export const getBridgeInformation = ipAddress => {
 	return new Promise((resolve, reject) => {
-		axios.get(`https://${ipAddress}/api/${hubUserName}/config`).then(response => {
+		axios.get(`http://${ipAddress}/api/${hubUserName}/config`).then(response => {
 			if (response.status === 200) {
 				resolve(response.data);
 			} else {
@@ -49,7 +49,7 @@ export const getBridgeInformation = ipAddress => {
  */
 export const getGroupsList = ipAddress => {
 	return new Promise((resolve, reject) => {
-		axios.get(`https://${ipAddress}/api/${hubUserName}/groups`).then(response => {
+		axios.get(`http://${ipAddress}/api/${hubUserName}/groups`).then(response => {
 			if (response.status === 200) {
 				resolve(response.data);
 			} else {
@@ -71,7 +71,7 @@ export const getGroupsList = ipAddress => {
  */
 export const setGroupState = (ipAddress, group, state) => {
 	return new Promise((resolve, reject) => {
-		axios.put(`https://${ipAddress}/api/${hubUserName}/groups/${group}/action`, state).then(response => {
+		axios.put(`http://${ipAddress}/api/${hubUserName}/groups/${group}/action`, state).then(response => {
 			if (response.status === 200) {
 				resolve(response.data);
 			} else {
@@ -92,7 +92,7 @@ export const setGroupState = (ipAddress, group, state) => {
  */
 export const getGroupInformation = (ipAddress, groupId) => {
 	return new Promise((resolve, reject) => {
-		axios.get(`https://${ipAddress}/api/${hubUserName}/groups/${groupId}`).then(response => {
+		axios.get(`http://${ipAddress}/api/${hubUserName}/groups/${groupId}`).then(response => {
 			if (response.status === 200) {
 				resolve(response.data);
 			} else {
@@ -114,7 +114,7 @@ export const getGroupInformation = (ipAddress, groupId) => {
  */
 export const getLightInformation = (ipAddress, lightId) => {
 	return new Promise((resolve, reject) => {
-		axios.get(`https://${ipAddress}/api/${hubUserName}/lights/${lightId}`).then(response => {
+		axios.get(`http://${ipAddress}/api/${hubUserName}/lights/${lightId}`).then(response => {
 			if (response.status === 200) {
 				resolve(response.data);
 			} else {
@@ -136,7 +136,7 @@ export const getLightInformation = (ipAddress, lightId) => {
  */
 export const setLightState = (ipAddress, light, state) => {
 	return new Promise((resolve, reject) => {
-		axios.put(`https://${ipAddress}/api/${hubUserName}/lights/${light}/state`, state).then(response => {
+		axios.put(`http://${ipAddress}/api/${hubUserName}/lights/${light}/state`, state).then(response => {
 			if (response.status === 200) {
 				resolve(response.data);
 			} else {
