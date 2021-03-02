@@ -2,7 +2,7 @@
 React page to control Philips Hue lights in local network
 
 # Disclaimer
-This App checks for your Philips Hue in your local network, this was created with a local server / hud contol in mind.
+This App checks for your Philips Hue in your local network, this was created with a local server / hud control in mind.
 
 # Setup
 Download the project :tongue:
