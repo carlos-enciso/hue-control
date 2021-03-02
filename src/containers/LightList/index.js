@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import HubContext from '../../context/HubContext';
+import HubContext from '../../context';
 import GroupInformation from '../../components/GroupInformation';
 import LightInformation from '../../components/LightInformation';
 import { getGroupInformation, setLightState, getLightInformation, setGroupState } from '../../utils/httpActions';

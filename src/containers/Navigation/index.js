@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { makeStyles, Button, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import HubContext from '../../context/HubContext';
+import HubContext from '../../context';
 
 const Navigation = ({ children }) => {
 	const { backNavigation, headerTitle } = useContext(HubContext);
